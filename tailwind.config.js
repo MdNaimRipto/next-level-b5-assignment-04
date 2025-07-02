@@ -11,6 +11,8 @@ export default {
       lightBlack: "#1E1E1E",
       gray: "#808080",
       lightGray: "#B3B3B3",
+      success: "#5cb85c",
+      error: "#FF3333",
     },
     container: {
       center: true,

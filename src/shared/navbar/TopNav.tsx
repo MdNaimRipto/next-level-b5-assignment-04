@@ -23,7 +23,7 @@ const TopNav = () => {
   ];
 
   return (
-    <div className="bg-primary2 text-white text-xs h-[60px] leading-[60px] hidden md:block">
+    <div className="bg-primary2 text-white text-xs h-[50px] leading-[50px] hidden md:block">
       <div className="container flex items-center justify-between h-full">
         <div className="flex items-center h-full gap-2">
           <Link className="border-x border-x-white px-2" to="">
