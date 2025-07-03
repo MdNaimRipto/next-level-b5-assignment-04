@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import banner01 from "../../../assets/banner/banner01.jpg";
 import banner02 from "../../../assets/banner/banner02.jpg";
-import BasicButton from "../../common/buttons/BasicButton";
+import { Button } from "@mui/material";
+import { colorConfig } from "../../../configs/colorConfig";
 
 const banners = [
   {
@@ -55,7 +56,16 @@ const Banner = () => {
           {banners[currentIndex].description}
         </p>
         <Link to="/books">
-          <BasicButton title="Browse Books" />
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: colorConfig.primary2,
+            }}
+          >
+            <span className="normal-case navTitle text-lg mb-[2px] font-medium">
+              Browse Books
+            </span>
+          </Button>
         </Link>
       </div>
     </div>
