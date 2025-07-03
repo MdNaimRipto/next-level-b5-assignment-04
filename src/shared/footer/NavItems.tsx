@@ -8,8 +8,12 @@ const NavItems = () => {
       path: "/",
     },
     {
-      title: "Books",
+      title: "All Books",
       path: "/books",
+    },
+    {
+      title: "Add Book",
+      path: "/create-book",
     },
     {
       title: "Top Selling Books",

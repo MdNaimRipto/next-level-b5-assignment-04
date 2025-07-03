@@ -4,3 +4,11 @@ export interface IBorrow {
   quantity: number;
   dueDate: Date;
 }
+
+export interface IBorrowedBooksSummary {
+  totalQuantity: number;
+  book: {
+    title: string;
+    isbn: string;
+  };
+}

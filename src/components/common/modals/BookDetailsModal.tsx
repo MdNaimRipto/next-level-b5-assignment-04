@@ -1,20 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { Dialog } from "@mui/material";
 import type { IBooks } from "../../../types/books.types";
 import UpdateBookModal from "./UpdateBookModal";
+import WarningModal from "./WarningModal";
+import BorrowModal from "./BorrowModal";
 
 interface BookDetailsModalProps {
   open: boolean;
   onClose: () => void;
   book: IBooks | null;
+  refetch: any;
 }
 
 const BookDetailsModal: React.FC<BookDetailsModalProps> = ({
   open,
   onClose,
   book,
+  refetch,
 }) => {
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [openBorrowModal, setOpenBorrowModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   if (!book) return null;
 
@@ -73,8 +80,9 @@ const BookDetailsModal: React.FC<BookDetailsModalProps> = ({
               Close
             </button>
             <button
-              onClick={() => setOpenUpdateModal(true)}
-              className="px-4 py-2 bg-success text-white rounded hover:bg-primary2/80"
+              disabled={book.copies <= 0 ? true : false}
+              onClick={() => setOpenBorrowModal(true)}
+              className="px-4 py-2 bg-success text-white rounded hover:bg-primary2/80 disabled:bg-gray/30 disabled:cursor-not-allowed"
             >
               Borrow
             </button>
@@ -84,7 +92,12 @@ const BookDetailsModal: React.FC<BookDetailsModalProps> = ({
             >
               Update
             </button>
-            {/* Delete Button Location */}
+            <button
+              onClick={() => setOpenDeleteModal(true)}
+              className="px-4 py-2 bg-error text-white rounded hover:bg-red-600"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </Dialog>
@@ -94,6 +107,23 @@ const BookDetailsModal: React.FC<BookDetailsModalProps> = ({
         open={openUpdateModal}
         onClose={() => setOpenUpdateModal(false)}
         book={book}
+        refetch={refetch}
+      />
+      {/* Delete Warning Modal */}
+      <WarningModal
+        open={openDeleteModal}
+        onClose={() => setOpenDeleteModal(false)}
+        closeDetailsModal={() => onClose()}
+        id={book._id}
+        refetch={refetch}
+      />
+
+      {/* Borrow Modal */}
+      <BorrowModal
+        open={openBorrowModal}
+        onClose={() => setOpenBorrowModal(false)}
+        id={book._id}
+        refetch={refetch}
       />
     </>
   );

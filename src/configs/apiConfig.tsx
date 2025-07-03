@@ -8,7 +8,7 @@ export const apiConfig = {
     delete: "/books/deleteBook",
   },
   borrow: {
-    borrow: "/borrow",
+    borrow: "/borrow/borrowBook",
     getSummary: "/borrow/getBooksSummary",
   },
 };

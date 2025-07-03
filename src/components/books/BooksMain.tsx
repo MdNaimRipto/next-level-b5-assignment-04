@@ -1,33 +1,15 @@
-import { useNavigate } from "react-router";
-import BookCard from "../common/cards/BookCard";
-import type { BookGenreEnums, IBooks } from "../../types/books.types";
+import { useNavigate, useSearchParams } from "react-router";
+
+import type { BookGenreEnums } from "../../types/books.types";
 import { useState } from "react";
-import AddBookModal from "../common/modals/AddBookModal";
+import BooksContainer from "./BooksContainer";
 
 const BooksMain = () => {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
 
-  const dummyBooks: IBooks[] = [
-    {
-      title: "The Silent Patient",
-      author: "Alex Michaelides",
-      genre: "FICTION",
-      isbn: "9781250301697",
-      description: "A psychological thriller.",
-      copies: 5,
-      available: true,
-    },
-    {
-      title: "Atomic Habits",
-      author: "James Clear",
-      genre: "NON_FICTION",
-      isbn: "9780735211292",
-      description: "Habit-building strategies.",
-      copies: 10,
-      available: true,
-    },
-  ];
+  const [searchParams] = useSearchParams();
+  const genre = searchParams.get("genre");
 
   const genres: BookGenreEnums[] = [
     "FICTION",
@@ -48,6 +30,12 @@ const BooksMain = () => {
         <h2 className="text-3xl font-semibold">All Books</h2>
 
         <div className="flex flex-wrap gap-3">
+          <button
+            onClick={() => navigate("/books")}
+            className="bg-primary2 hover:bg-primary2/80 text-white px-4 py-2 rounded-md text-sm font-medium transition"
+          >
+            ALL
+          </button>
           {genres.map((genre, index) => (
             <button
               key={index}
@@ -65,14 +53,11 @@ const BooksMain = () => {
           </button>
         </div>
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-        {dummyBooks.map((book, index) => (
-          <BookCard key={index} book={book} />
-        ))}
-      </div>
-
-      {/* Add Book Modal */}
-      <AddBookModal open={openModal} onClose={() => setOpenModal(false)} />
+      <BooksContainer
+        genre={genre}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </div>
   );
 };

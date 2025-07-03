@@ -15,8 +15,12 @@ const NavItems = ({
       path: "/",
     },
     {
-      title: "Books",
+      title: "All Books",
       path: "/books",
+    },
+    {
+      title: "Add Book",
+      path: "/create-book",
     },
     {
       title: "Top Selling Books",
@@ -74,7 +78,7 @@ const NavItems = ({
           }}
         >
           <span className="normal-case navTitle text-lg font-medium">
-            View Summary
+            Borrow Summary
           </span>
         </Button>
       </Link>

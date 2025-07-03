@@ -7,6 +7,7 @@ export type BookGenreEnums =
   | "FANTASY";
 
 export interface IBooks {
+  _id: string;
   title: string;
   author: string;
   genre: BookGenreEnums;

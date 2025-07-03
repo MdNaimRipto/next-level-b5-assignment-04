@@ -38,8 +38,8 @@ const bookApis = apiSlice.injectEndpoints({
     // * Get Book Details
     //
     getBookDetails: builder.query({
-      query: ({ bookId }: { bookId: string }) => ({
-        url: `${apiConfig.books.getById}/${bookId}`,
+      query: ({ id }: { id: string }) => ({
+        url: `${apiConfig.books.getById}/${id}`,
         headers: {
           "Content-type": "application/json",
         },
@@ -49,27 +49,28 @@ const bookApis = apiSlice.injectEndpoints({
     // * Update Book
     //
     updateBook: builder.mutation({
-      query: ({ bookId, data }: { bookId: string; data: Partial<IBooks> }) => ({
-        url: `${apiConfig.books.update}/${bookId}`,
+      query: ({ id, data }: { id: string; data: Partial<IBooks> }) => ({
+        url: `${apiConfig.books.update}/${id}`,
         method: "PUT",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify(data),
       }),
-      invalidatesTags: [],
+      invalidatesTags: ["AllBooks"],
     }),
     //
     // * Delete book
     //
     deleteBook: builder.mutation({
-      query: ({ bookId }: { bookId: string }) => ({
-        url: `${apiConfig.books.update}/${bookId}`,
+      query: ({ id }: { id: string }) => ({
+        url: `${apiConfig.books.delete}/${id}`,
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
         },
       }),
+      invalidatesTags: ["AllBooks"],
     }),
   }),
 });

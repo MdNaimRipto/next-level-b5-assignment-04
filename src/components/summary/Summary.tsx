@@ -1,39 +1,26 @@
 import React from "react";
-
-interface BorrowedBookSummary {
-  totalQuantity: number;
-  book: {
-    title: string;
-    isbn: string;
-  };
-}
-
-// Dummy data simulation
-const borrowedBooks: BorrowedBookSummary[] = [
-  {
-    totalQuantity: 12,
-    book: {
-      title: "Atomic Habits",
-      isbn: "9780735211292",
-    },
-  },
-  {
-    totalQuantity: 7,
-    book: {
-      title: "The Hobbit",
-      isbn: "9780547928227",
-    },
-  },
-  {
-    totalQuantity: 4,
-    book: {
-      title: "1984",
-      isbn: "9780451524935",
-    },
-  },
-];
+import { useGetBorrowSummaryQuery } from "../../redux/features/borrowApis";
+import Loader from "../common/Loader";
+import NotFoundMessage from "../common/NotFoundMessage";
+import type { IBorrowedBooksSummary } from "../../types/borrow.types";
 
 const Summary: React.FC = () => {
+  const { data, isLoading } = useGetBorrowSummaryQuery({});
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (!data) {
+    return <NotFoundMessage title="No Books Summary Found!" />;
+  }
+
+  const borrowedBooks = data?.data as IBorrowedBooksSummary[];
+
+  if (!borrowedBooks?.length) {
+    return <NotFoundMessage title="No Books Summary Found!" />;
+  }
+
   return (
     <div className="container py-16 min-h-screen">
       <h1 className="text-3xl font-semibold mb-8">Borrowed Books Summary</h1>

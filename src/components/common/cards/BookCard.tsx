@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import bookImg from "../../../assets/book.jpeg";
 import BasicButton from "../../common/buttons/BasicButton";
 import BookDetailsModal from "../modals/BookDetailsModal";
 import type { IBooks } from "../../../types/books.types";
 
-const BookCard = ({ book }: { book: IBooks }) => {
+const BookCard = ({ book, refetch }: { book: IBooks; refetch: any }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -34,11 +35,11 @@ const BookCard = ({ book }: { book: IBooks }) => {
         </div>
       </div>
 
-      {/* Book Details Modal */}
       <BookDetailsModal
         open={open}
         onClose={() => setOpen(false)}
         book={book}
+        refetch={refetch}
       />
     </>
   );

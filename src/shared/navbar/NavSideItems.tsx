@@ -33,7 +33,7 @@ const NavSideItems = ({
           }}
         >
           <span className="normal-case navTitle text-lg mb-[2px] font-medium">
-            View Summary
+            Borrow Summary
           </span>
         </Button>
       </Link>

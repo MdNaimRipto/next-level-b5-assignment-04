@@ -1,15 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
-import { Dialog } from "@mui/material";
-import type { BookGenreEnums } from "../../../types/books.types";
-import { useUploadBookMutation } from "../../../redux/features/bookApis";
-import { postApiHandler } from "../apiHandlers/postApiHandler";
-
-interface AddBookModalProps {
-  open: boolean;
-  onClose: () => void;
-  refetch: any;
-}
+import type { BookGenreEnums } from "../../types/books.types";
+import { useUploadBookMutation } from "../../redux/features/bookApis";
+import { postApiHandler } from "../common/apiHandlers/postApiHandler";
+import { useNavigate } from "react-router";
 
 const genres: BookGenreEnums[] = [
   "FICTION",
@@ -20,7 +13,8 @@ const genres: BookGenreEnums[] = [
   "FANTASY",
 ];
 
-const AddBookModal: React.FC<AddBookModalProps> = ({ open, onClose }) => {
+const AddBook: React.FC = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [addBook] = useUploadBookMutation();
 
@@ -42,22 +36,25 @@ const AddBookModal: React.FC<AddBookModalProps> = ({ open, onClose }) => {
 
     const optionalTasks = () => {
       form.reset();
-      onClose();
+      navigate("/books");
     };
 
     await postApiHandler({
       mutateFn: addBook,
       options: option,
-      setIsLoading: setIsLoading,
+      setIsLoading,
       optionalTasksFn: optionalTasks,
     });
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <form onSubmit={handleSubmit} className="p-6 space-y-4 bg-white">
-        <h2 className="text-xl font-semibold mb-2">Add a New Book</h2>
+    <div className="container py-16 flex items-center flex-col">
+      <h1 className="text-3xl font-semibold mb-8">Add a New Book</h1>
 
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-xl space-y-4 bg-white p-6 rounded shadow"
+      >
         <input
           name="bookTitle"
           required
@@ -70,7 +67,6 @@ const AddBookModal: React.FC<AddBookModalProps> = ({ open, onClose }) => {
           placeholder="Author"
           className="w-full px-4 py-2 border rounded"
         />
-
         <select
           name="genre"
           required
@@ -83,7 +79,6 @@ const AddBookModal: React.FC<AddBookModalProps> = ({ open, onClose }) => {
             </option>
           ))}
         </select>
-
         <input
           name="isbn"
           required
@@ -105,24 +100,17 @@ const AddBookModal: React.FC<AddBookModalProps> = ({ open, onClose }) => {
           className="w-full px-4 py-2 border rounded"
         />
 
-        <div className="flex justify-end gap-3 pt-2">
-          <button
-            type="button"
-            onClick={onClose}
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-          >
-            Cancel
-          </button>
+        <div className="flex justify-center gap-3 pt-2">
           <button
             type="submit"
-            className="px-4 py-2 bg-primary2 text-white rounded hover:bg-primary2/80"
+            className="px-6 py-2 bg-primary2 text-white rounded hover:bg-primary2/80"
           >
-            {isLoading ? "Uploading..." : "Upload"}
+            {isLoading ? "Uploading..." : "Upload Book"}
           </button>
         </div>
       </form>
-    </Dialog>
+    </div>
   );
 };
 
-export default AddBookModal;
+export default AddBook;
