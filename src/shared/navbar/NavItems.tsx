@@ -2,8 +2,13 @@ import { Button } from "@mui/material";
 import { Link } from "react-router";
 import { HashLink } from "react-router-hash-link";
 import { colorConfig } from "../../configs/colorConfig";
+import type { Dispatch, SetStateAction } from "react";
 
-const NavItems = () => {
+const NavItems = ({
+  setIsNavOpen,
+}: {
+  setIsNavOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   const items = [
     {
       title: "Home",
@@ -31,13 +36,18 @@ const NavItems = () => {
             <HashLink
               to={item.path}
               className="block lg:h-full lg:leading-[100px]"
+              onClick={() => setIsNavOpen(false)}
             >
               <li className="px-2 font-normal navTitle text-xl lg:text-lg lg:hover:text-primary2 duration-700 h-[70px] leading-[70px] text-white lg:text-black lg:h-full lg:leading-[100px]">
                 {item.title}
               </li>
             </HashLink>
           ) : (
-            <Link to={item.path} className="block lg:h-full lg:leading-[100px]">
+            <Link
+              to={item.path}
+              className="block lg:h-full lg:leading-[100px]"
+              onClick={() => setIsNavOpen(false)}
+            >
               <li className="px-2 font-normal navTitle text-xl lg:text-lg lg:hover:text-primary2 duration-700 h-[70px] leading-[70px] text-white lg:text-black lg:h-full lg:leading-[100px]">
                 {item.title}
               </li>
@@ -45,23 +55,29 @@ const NavItems = () => {
           )}
         </div>
       ))}
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: colorConfig.white,
-          color: colorConfig.primary2,
-          width: "100%",
-          display: {
-            xs: "block",
-            sm: "none",
-          },
-          mt: 3,
-        }}
+      <Link
+        to="/summary"
+        className="w-full md:hidden"
+        onClick={() => setIsNavOpen(false)}
       >
-        <span className="normal-case navTitle text-lg font-medium">
-          View Summary
-        </span>
-      </Button>
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: colorConfig.white,
+            color: colorConfig.primary2,
+            width: "100%",
+            display: {
+              xs: "block",
+              sm: "none",
+            },
+            mt: 3,
+          }}
+        >
+          <span className="normal-case navTitle text-lg font-medium">
+            View Summary
+          </span>
+        </Button>
+      </Link>
     </ul>
   );
 };

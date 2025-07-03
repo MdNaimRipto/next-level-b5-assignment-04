@@ -1,9 +1,17 @@
 import { Button } from "@mui/material";
 import { colorConfig } from "../../../configs/colorConfig";
+import type { Dispatch, SetStateAction } from "react";
 
-const BasicButton = ({ title }: { title: string }) => {
+const BasicButton = ({
+  title,
+  setOpen,
+}: {
+  title: string;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   return (
     <Button
+      onClick={() => setOpen(true)}
       variant="contained"
       sx={{
         backgroundColor: colorConfig.primary2,

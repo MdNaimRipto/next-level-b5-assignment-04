@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import { colorConfig } from "../../configs/colorConfig";
 import ResponsiveMenuHandlerButton from "./ResponsiveMenuHandlerButton";
 import type { Dispatch, SetStateAction } from "react";
+import { Link } from "react-router";
 
 const NavSideItems = ({
   isNavOpen,
@@ -20,20 +21,22 @@ const NavSideItems = ({
         isNavOpen={isNavOpen}
         setIsNavOpen={setIsNavOpen}
       />
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: colorConfig.primary2,
-          display: {
-            xs: "none",
-            sm: "block",
-          },
-        }}
-      >
-        <span className="normal-case navTitle text-lg mb-[2px] font-medium">
-          View Summary
-        </span>
-      </Button>
+      <Link to="/summary">
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: colorConfig.primary2,
+            display: {
+              xs: "none",
+              sm: "block",
+            },
+          }}
+        >
+          <span className="normal-case navTitle text-lg mb-[2px] font-medium">
+            View Summary
+          </span>
+        </Button>
+      </Link>
     </div>
   );
 };

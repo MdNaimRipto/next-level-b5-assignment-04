@@ -24,7 +24,7 @@ const Footer = () => {
   ];
 
   return (
-    <div>
+    <div className="border-t border-t-primary1">
       <div className="container flex flex-col md:flex-row md:items-center md:justify-between h-[500px] md:h-[200px]">
         <div className="w-28 h-28">
           <NavLogo />

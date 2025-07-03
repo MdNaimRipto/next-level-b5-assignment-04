@@ -14,7 +14,7 @@ const Navbar = () => {
           <div className="flex items-center h-full">
             <NavLogo />
             <div className="hidden lg:block">
-              <NavItems />
+              <NavItems setIsNavOpen={setIsNavOpen} />
             </div>
           </div>
           <NavSideItems isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
@@ -25,7 +25,7 @@ const Navbar = () => {
           isNavOpen ? "left-0" : "-left-full"
         } duration-700`}
       >
-        <NavItems />
+        <NavItems setIsNavOpen={setIsNavOpen} />
       </div>
     </div>
   );
